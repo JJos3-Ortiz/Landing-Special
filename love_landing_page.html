@@ -1,0 +1,584 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  .page {
+    background: #0a0a14;
+    color: #f0ece4;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  .stars-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 3s infinite alternate;
+  }
+
+  @keyframes twinkle {
+    0% { opacity: 0.15; transform: scale(1); }
+    100% { opacity: 0.9; transform: scale(1.5); }
+  }
+
+  .content-wrap {
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 24px;
+    position: relative;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 0%, #1a0a2e 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 20% 80%, #2a0a0a 0%, transparent 60%),
+      radial-gradient(ellipse 40% 35% at 80% 60%, #1a1100 0%, transparent 60%);
+    z-index: 0;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+  }
+
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #f5a623;
+    border: 1px solid #f5a62350;
+    padding: 6px 18px;
+    border-radius: 20px;
+    margin-bottom: 28px;
+    background: #f5a62312;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(34px, 6vw, 56px);
+    font-weight: 700;
+    line-height: 1.18;
+    margin-bottom: 20px;
+    color: #ffffff;
+  }
+
+  .accent-blue { color: #4a9eff; }
+  .accent-red { color: #ff4a4a; }
+  .accent-orange { color: #f5a623; }
+
+  .hero-sub {
+    font-size: 15px;
+    font-weight: 300;
+    color: #a09880;
+    line-height: 1.8;
+    margin-bottom: 40px;
+    font-style: italic;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #c0392b, #e74c3c);
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    padding: 14px 36px;
+    border-radius: 40px;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    box-shadow: 0 0 30px #c0392b55;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 0 50px #c0392b80; }
+
+  .divider {
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(90deg, #c0392b, #f5a623);
+    margin: 0 auto 48px;
+    border-radius: 2px;
+  }
+
+  /* ── SERIES SECTION ── */
+  .series-section {
+    padding: 80px 24px;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #f5a623;
+    text-align: center;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 4vw, 32px);
+    color: #ffffff;
+    margin-bottom: 48px;
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  .show-card {
+    border-radius: 20px;
+    padding: 36px 30px;
+    border: 1px solid;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s;
+  }
+
+  .show-card:hover { transform: translateY(-3px); }
+
+  .show-card .glow {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    opacity: 0.07;
+    top: -60px;
+    right: -40px;
+    pointer-events: none;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+
+  .card-icon-wrap {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .card-series-name {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+  }
+
+  .card-tagline {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-style: italic;
+    color: #e0d8c8;
+    line-height: 1.35;
+  }
+
+  .card-divider {
+    height: 1px;
+    background: currentColor;
+    opacity: 0.12;
+    margin: 18px 0;
+  }
+
+  .card-parallel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .card-col-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 8px;
+    opacity: 0.5;
+  }
+
+  .card-col-text {
+    font-size: 13px;
+    line-height: 1.75;
+    color: #a09880;
+  }
+
+  .card-bottom-quote {
+    margin-top: 20px;
+    padding: 16px 20px;
+    border-radius: 12px;
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-style: italic;
+    line-height: 1.7;
+  }
+
+  /* COBRA KAI */
+  .card-cobra { background: #100c00; border-color: #f5a62330; }
+  .card-cobra .glow { background: #f5a623; }
+  .card-cobra .card-icon-wrap { background: #f5a62318; color: #f5a623; }
+  .card-cobra .card-series-name { color: #f5a623; }
+  .card-cobra .card-bottom-quote { background: #f5a62310; color: #d4a830; border-left: 2px solid #f5a62340; }
+
+  /* STRANGER THINGS */
+  .card-stranger { background: #00050f; border-color: #4a9eff30; }
+  .card-stranger .glow { background: #4a9eff; }
+  .card-stranger .card-icon-wrap { background: #4a9eff18; color: #4a9eff; }
+  .card-stranger .card-series-name { color: #4a9eff; }
+  .card-stranger .card-bottom-quote { background: #4a9eff10; color: #6db0ff; border-left: 2px solid #4a9eff40; }
+
+  /* ER */
+  .card-er { background: #0f0000; border-color: #ff4a4a30; }
+  .card-er .glow { background: #ff4a4a; }
+  .card-er .card-icon-wrap { background: #ff4a4a18; color: #ff4a4a; }
+  .card-er .card-series-name { color: #ff4a4a; }
+  .card-er .card-bottom-quote { background: #ff4a4a10; color: #ff7070; border-left: 2px solid #ff4a4a40; }
+
+  /* ── LETTER ── */
+  .letter-section {
+    padding: 20px 24px 80px;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .letter-box {
+    background: #0d0a05;
+    border: 1px solid #f5a62322;
+    border-radius: 22px;
+    padding: 44px 40px;
+    position: relative;
+  }
+
+  .letter-box::before {
+    content: '"';
+    font-family: 'Playfair Display', serif;
+    font-size: 130px;
+    color: #f5a62312;
+    position: absolute;
+    top: -16px;
+    left: 16px;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .letter-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 15.5px;
+    line-height: 2.1;
+    color: #ccc4b0;
+    font-style: italic;
+    position: relative;
+    z-index: 1;
+  }
+
+  .letter-sign {
+    margin-top: 32px;
+    text-align: right;
+    font-size: 12px;
+    color: #f5a623;
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
+
+  /* ── FOOTER ── */
+  .footer-section {
+    padding: 20px 24px 70px;
+    text-align: center;
+  }
+
+  .heartbeat {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 0 48px;
+    gap: 14px;
+  }
+
+  .hb-line { height: 1px; width: 80px; background: linear-gradient(90deg, transparent, #ff4a4a60); }
+  .hb-line.r { background: linear-gradient(90deg, #ff4a4a60, transparent); }
+
+  .hb-heart {
+    color: #ff4a4a;
+    font-size: 20px;
+    animation: hb 1.4s infinite;
+  }
+
+  @keyframes hb {
+    0%,100% { transform: scale(1); }
+    14% { transform: scale(1.3); }
+    28% { transform: scale(1); }
+    42% { transform: scale(1.15); }
+  }
+
+  .footer-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+
+  .footer-sub {
+    font-size: 13px;
+    color: #706858;
+    margin-bottom: 28px;
+    font-style: italic;
+  }
+
+  .answer-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+  .btn-yes {
+    background: linear-gradient(135deg, #c0392b, #ff6b35);
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 13px 30px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    box-shadow: 0 0 24px #c0392b55;
+    transition: transform 0.2s;
+  }
+  .btn-yes:hover { transform: scale(1.05); }
+
+  .btn-maybe {
+    background: transparent;
+    color: #a09880;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 13px 30px;
+    border-radius: 30px;
+    border: 1px solid #40382a;
+    cursor: pointer;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-maybe:hover { border-color: #706858; color: #c8c0b0; }
+
+  .response-msg {
+    display: none;
+    margin-top: 28px;
+    font-family: 'Playfair Display', serif;
+    font-size: 19px;
+    font-style: italic;
+    animation: fadeIn 0.6s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.on { opacity: 1; transform: translateY(0); }
+</style>
+
+<div class="page" id="pg">
+
+  <div class="stars-layer" id="stars"></div>
+
+  <div class="content-wrap">
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-content">
+        <div class="badge">Para ti — Una carta con un sentimiento sincero y a la vez con nervios xd</div>
+        <h1 class="hero-title">
+          Hay algo que<br>
+          <span class="accent-blue">llevo tiempo</span><br>
+          queriendo <span class="accent-red">decirte</span>
+        </h1>
+        <p class="hero-sub">No soy de muchas palabras,<br>pero tú mereces que haga el esfuerzo.</p>
+        <button class="cta-btn" onclick="scrollToSeries()">Te interesa? da click ↓</button>
+      </div>
+    </div>
+
+    <!-- SERIES -->
+    <div class="series-section" id="series-anchor">
+      <div class="divider"></div>
+      <div class="section-label reveal">Siempre Pensando en Ti</div>
+      <h2 class="section-title reveal">Tus series favoritas<br>también me hablan de ti</h2>
+
+      <!-- COBRA KAI -->
+      <div class="show-card card-cobra reveal">
+        <div class="glow"></div>
+        <div class="card-header">
+          <div class="card-icon-wrap"><i class="ti ti-flame" aria-hidden="true"></i></div>
+          <div>
+            <div class="card-series-name">Cobra Kai</div>
+            <div class="card-tagline">"Strike first, strike hard" — pero con el corazón</div>
+          </div>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-parallel">
+          <div>
+            <div class="card-col-label" style="color:#f5a623;">En la serie</div>
+            <p class="card-col-text">Johnny Lawrence aprende que los errores del pasado no te definen. Que nunca es tarde para hacer lo correcto, para pedir perdón, para volver a intentarlo.</p>
+          </div>
+          <div>
+            <div class="card-col-label" style="color:#f5a623;">En lo que siento</div>
+            <p class="card-col-text">Yo tampoco soy perfecto. Pero sé que vale la pena dar el primer paso. Por eso estoy aquí, sin saber muy bien cómo decirte esto, pero diciéndotelo igual.</p>
+          </div>
+        </div>
+        <div class="card-bottom-quote">
+          "El camino de un sensei empieza con la honestidad." — Y la mía empieza contigo, siendo honesto sobre lo que siento.
+        </div>
+      </div>
+
+      <!-- STRANGER THINGS -->
+      <div class="show-card card-stranger reveal">
+        <div class="glow"></div>
+        <div class="card-header">
+          <div class="card-icon-wrap"><i class="ti ti-universe" aria-hidden="true"></i></div>
+          <div>
+            <div class="card-series-name">Stranger Things</div>
+            <div class="card-tagline">Porque contigo hasta lo desconocido da menos miedo</div>
+          </div>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-parallel">
+          <div>
+            <div class="card-col-label" style="color:#4a9eff;">En la serie</div>
+            <p class="card-col-text">Mike y Once se buscan a través de dimensiones enteras. Hay un lazo que ni el Upside Down pudo romper. Eso es lo que pasa cuando encuentras a alguien que te cambia.</p>
+          </div>
+          <div>
+            <div class="card-col-label" style="color:#4a9eff;">En lo que siento</div>
+            <p class="card-col-text">No sé muy bien qué hay al otro lado si nos damos una oportunidad. Pero sí sé que me gustaría explorarlo contigo. A veces lo mejor empieza donde termina lo conocido.</p>
+          </div>
+        </div>
+        <div class="card-bottom-quote">
+          "Friends don't lie." — Y yo tampoco te voy a mentir: me gustas más de lo que sé decir.
+        </div>
+      </div>
+
+      <!-- ER -->
+      <div class="show-card card-er reveal">
+        <div class="glow"></div>
+        <div class="card-header">
+          <div class="card-icon-wrap"><i class="ti ti-heart-rate-monitor" aria-hidden="true"></i></div>
+          <div>
+            <div class="card-series-name">Emergency Room</div>
+            <div class="card-tagline">Hay urgencias del corazón que no se pueden ignorar</div>
+          </div>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-parallel">
+          <div>
+            <div class="card-col-label" style="color:#ff4a4a;">En la serie</div>
+            <p class="card-col-text">En urgencias no hay tiempo para dudar. Los mejores doctores aprenden que esperar demasiado puede costar caro. A veces hay que actuar aunque tengas miedo.</p>
+          </div>
+          <div>
+            <div class="card-col-label" style="color:#ff4a4a;">En lo que siento</div>
+            <p class="card-col-text">Llevo un tiempo con esto adentro y ya no quería seguir callándolo. Decidí que era mejor decírtelo, aunque me ponga nervioso, que quedármelo para siempre.</p>
+          </div>
+        </div>
+        <div class="card-bottom-quote">
+          Mi corazón tiene sus propias urgencias — y una de ellas eras tú.
+        </div>
+      </div>
+    </div>
+
+    <!-- LETTER -->
+    <div class="letter-section reveal">
+      <div class="section-label" style="text-align:center; margin-bottom:24px;">Mi carta para ti</div>
+      <div class="letter-box">
+        <p class="letter-text">
+          Hola...<br><br>
+          No sé muy bien por dónde empezar. Soy de las personas que se les nota todo menos cuando tienen que decir algo importante, así que aquí estoy, tratando de ordenar lo que siento antes de que se me olvide cómo hacerlo.<br><br>
+          Me gustas. No de manera exagerada ni con drama. De esa manera tranquila que de repente te das cuenta que piensas en alguien más de lo que creías.<br><br>
+          No te pido nada grande. Solo una oportunidad de conocernos mejor, de hablar más, de tratarnos bonito y ver qué pasa. Sin presión, sin apuros. Solo... darnos el espacio para descubrir si hay algo aquí.<br><br>
+          Si sientes que no, lo entiendo y lo respeto con todo. Pero si hay aunque sea una pequeña curiosidad de tu parte... me gustaría saberlo.<br><br>
+          Gracias por leer esto hasta acá. Ya eso me dice mucho de ti.
+        </p>
+        <div class="letter-sign">— Con nervios, pero con mucha sinceridad 🧡</div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer-section reveal">
+      <div class="heartbeat">
+        <div class="hb-line"></div>
+        <span class="hb-heart"><i class="ti ti-heart" aria-hidden="true"></i></span>
+        <div class="hb-line r"></div>
+      </div>
+      <h3 class="footer-title">¿Le damos una oportunidad?</h3>
+      <p class="footer-sub">Sin presión. Desde el corazón.</p>
+      <div class="answer-buttons">
+        <button class="btn-yes" onclick="showResp(true)">Sí, me interesa saber más</button>
+        <button class="btn-maybe" onclick="showResp(false)">Necesito pensarlo</button>
+      </div>
+      <p class="response-msg" id="rmsg"></p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const sc = document.getElementById('stars');
+  for (let i = 0; i < 90; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const sz = Math.random() * 2.2 + 0.5;
+    s.style.cssText = `width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;animation-delay:${Math.random()*5}s;animation-duration:${2+Math.random()*3}s;`;
+    sc.appendChild(s);
+  }
+
+  function scrollToSeries() {
+    document.getElementById('series-anchor').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  function showResp(yes) {
+    const m = document.getElementById('rmsg');
+    m.style.display = 'block';
+    if (yes) {
+      m.textContent = '✨ Me alegra muchísimo. Pronto hablamos, lo prometo.';
+      m.style.color = '#f5a623';
+    } else {
+      m.textContent = '💙 Está bien. Lo que valga, esperará sin prisa.';
+      m.style.color = '#4a9eff';
+    }
+  }
+</script>
